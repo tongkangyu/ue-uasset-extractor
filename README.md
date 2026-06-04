@@ -22,6 +22,7 @@
 |   `-- Export-UAssetJson.ps1         # UAssetGUI 转换辅助脚本
 |-- tools/
 |   `-- UAssetGUI.exe                 # 内置 UAssetGUI 命令行工具
+|-- install.ps1                       # 一键安装脚本
 |-- README.md
 |-- LICENSE
 |-- .gitattributes
@@ -37,18 +38,42 @@
 
 `tools/UAssetGUI.exe` 来自 [UAssetGUI](https://github.com/atenfyr/UAssetGUI)，是运行时依赖，所以仓库会保留这个可执行文件，不应该放进 `.gitignore`。
 
-## 安装位置
+## 安装
 
-当前仓库建议放在 opencode 的全局 skills 目录：
+### 一行安装
+
+PowerShell 运行：
+
+```powershell
+irm https://raw.githubusercontent.com/tongkangyu/ue-uasset-extractor/main/install.ps1 | iex
+```
+
+这个命令会把 skill 安装到 opencode 的全局 skills 目录：
 
 ```text
 %USERPROFILE%\.config\opencode\skills\ue-uasset-extractor
 ```
 
-也可以放到项目级 `.opencode` 目录：
+如果目标目录已经是 git 仓库，安装脚本会执行 `git pull --ff-only` 更新。若目标目录已存在但不是 git 仓库，脚本会停止并提示你手动处理，避免覆盖本地文件。
+
+### 使用 git clone 安装
+
+全局安装：
+
+```powershell
+git clone https://github.com/tongkangyu/ue-uasset-extractor.git "$env:USERPROFILE\.config\opencode\skills\ue-uasset-extractor"
+```
+
+项目级安装：
 
 ```text
 <your-project>\.opencode\skills\ue-uasset-extractor
+```
+
+在项目根目录运行：
+
+```powershell
+git clone https://github.com/tongkangyu/ue-uasset-extractor.git ".opencode\skills\ue-uasset-extractor"
 ```
 
 添加或修改 skill 后，需要重启 opencode。opencode 启动时加载 skill，运行中的会话不会热重载这些文件。
@@ -147,6 +172,7 @@ rg -n "Health|Ammo|CurrentWeapon|CreatedWeapon|KillNum|KilledNum|RemainingTime|b
 - `SKILL.md`
 - `scripts/Export-UAssetJson.ps1`
 - `tools/UAssetGUI.exe`
+- `install.ps1`
 - `README.md`
 - `LICENSE`
 - `.gitattributes`
@@ -168,17 +194,17 @@ git diff
 git log --oneline -5
 ```
 
-本次文档和 git 文件可以这样提交：
+文档、脚本和 git 文件可以这样提交：
 
 ```powershell
-git add README.md .gitignore
-git commit -m "Document ue uasset extractor skill"
+git add README.md SKILL.md install.ps1 .gitignore
+git commit -m "Add install instructions"
 ```
 
-如果之后要推送到远程仓库，先手动添加 remote：
+远程仓库地址：
 
 ```powershell
-git remote add origin <repo-url>
+git remote add origin https://github.com/tongkangyu/ue-uasset-extractor.git
 git push -u origin main
 ```
 
