@@ -33,13 +33,12 @@ if (Test-Path -LiteralPath $Target) {
 
     "Updated ue-uasset-extractor at $Target"
     "Restart opencode to load the latest skill files."
-    return
-}
+} else {
+    git clone $RepoUrl $Target
+    if ($LASTEXITCODE -ne 0) {
+        throw "Failed to clone $RepoUrl to $Target"
+    }
 
-git clone $RepoUrl $Target
-if ($LASTEXITCODE -ne 0) {
-    throw "Failed to clone $RepoUrl to $Target"
+    "Installed ue-uasset-extractor to $Target"
+    "Restart opencode to load the skill."
 }
-
-"Installed ue-uasset-extractor to $Target"
-"Restart opencode to load the skill."
