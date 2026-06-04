@@ -33,7 +33,7 @@ if (Test-Path -LiteralPath $Target) {
 
     "Updated ue-uasset-extractor at $Target"
     "Restart opencode to load the latest skill files."
-    exit 0
+    return
 }
 
 git clone $RepoUrl $Target
