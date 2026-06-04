@@ -71,7 +71,7 @@ From PowerShell:
 ```powershell
 & "$env:USERPROFILE\.config\opencode\skills\ue-uasset-extractor\scripts\Export-UAssetJson.ps1" `
   -SourceAsset "C:\path\to\Content\All\FppShooter.uasset" `
-  -OutputJson "C:\Users\19370\.local\share\opencode\uasset-json\project10\FppShooter.json" `
+  -OutputJson "$env:USERPROFILE\.local\share\opencode\uasset-json\my-project\FppShooter.json" `
   -EngineVersion 27
 ```
 
@@ -104,9 +104,9 @@ rg -n "EX_VirtualFunction|EX_LocalVirtualFunction|EX_LocalFinalFunction|VirtualF
 ## Cleanliness Rules
 
 - Keep generated JSON outside the skill directory unless the user explicitly asks otherwise.
-- Prefer `C:\Users\19370\AppData\Local\Temp\opencode\uasset-extract` for temporary copied assets.
-- Prefer `C:\Users\19370\.local\share\opencode\uasset-json` for generated JSON that should survive cleanup. Create a project subfolder such as `project10` for each UE project.
-- Use `C:\Users\19370\Desktop\cache` only when the user explicitly asks for that temporary desktop cache. Do not treat it as durable storage.
+- Prefer `%LOCALAPPDATA%\Temp\opencode\uasset-extract` for temporary copied assets.
+- Prefer `%USERPROFILE%\.local\share\opencode\uasset-json` for generated JSON that should survive cleanup. Create a project subfolder for each UE project.
+- Use user-requested scratch directories only when explicitly asked. Do not treat them as durable storage.
 - Do not leave temporary asset copies in project directories.
 - Do not modify source `.uasset` files during analysis.
 
@@ -115,7 +115,7 @@ rg -n "EX_VirtualFunction|EX_LocalVirtualFunction|EX_LocalFinalFunction|VirtualF
 This workflow was validated on:
 
 ```text
-C:\personal\UE_Project\project10\Content\All\FppShooter.uasset
+<your-ue-project>\Content\All\FppShooter.uasset
 ```
 
 The original file was locked by `UE4Editor.exe`, so the helper-style copy fallback was required. Conversion produced readable JSON containing `K2Node_CustomEvent`, `K2Node_CallFunction`, `FUNC_NetServer`, `FUNC_NetMulticast`, `server-onShootButtonDown`, and `all-onShootButtonDown`.

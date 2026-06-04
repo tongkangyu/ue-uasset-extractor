@@ -1,0 +1,32 @@
+# Generated UAssetAPI JSON dumps
+*.json
+*.jsonl
+
+# Temporary copied Unreal asset files
+*.uasset
+*.umap
+*.uexp
+*.ubulk
+
+# Optional mappings are local/project-specific
+*.usmap
+
+# Logs and PowerShell transcripts
+*.log
+*.etl
+PowerShell_transcript*.txt
+
+# Local editor and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+Desktop.ini
+
+# Local scratch directories
+tmp/
+temp/
+cache/
+out/
+dist/
